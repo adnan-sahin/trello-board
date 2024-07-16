@@ -27,7 +27,9 @@ onKeyStroke("Backspace", (e) => {
     tabindex="0"
   >
     <DragHandle />
-    <span> {{ task.title }} </span>
+    <span>{{ task.title }}</span>
+    <br />
+    <!-- <div>{{ task.createdAt.toLocaleDateString() }}</div> -->
   </div>
 </template>
 
