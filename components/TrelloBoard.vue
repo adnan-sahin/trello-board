@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { nanoid } from "nanoid"
-import type { Column, Task } from "~/types"
+import type { Column, ID, Task } from "~/types"
 import draggable from "vuedraggable"
 
 const columns = ref<Column[]>([
@@ -36,6 +36,10 @@ const columns = ref<Column[]>([
 ])
 
 const alt = useKeyModifier("Alt")
+
+const hanleDeleteTask = (e: ID, column: Column) => {
+  column.tasks = column.tasks.filter((t) => t.id != e)
+}
 </script>
 
 <template>
@@ -63,12 +67,12 @@ const alt = useKeyModifier("Alt")
           >
             <template #item="{ element: task }: { element: Task }">
               <div>
-                <TrelloBoardTask :task="task" />
+                <TrelloBoardTask :task="task" @delete="(e) => hanleDeleteTask(e, column)" />
               </div>
             </template>
           </draggable>
           <footer>
-            <button class="text-gray-500">+ Add a Card</button>
+            <NewTask @add="column.tasks.push($event)" />
           </footer>
         </div>
       </template>
@@ -77,18 +81,5 @@ const alt = useKeyModifier("Alt")
 </template>
 
 <style lang="scss" scoped>
-.sortable-drag {
-  .task {
-    transform: rotate(5deg);
-  }
-}
-.sortable-ghost {
-  .task {
-    position: relative;
-    &::after {
-      content: "";
-      @apply absolute top-0 bottom-0 left-0 right-0 bg-slate-300 rounded;
-    }
-  }
-}
+
 </style>
