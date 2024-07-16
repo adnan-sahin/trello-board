@@ -7,7 +7,11 @@ defineProps<{
 </script>
 
 <template>
-  <div :title="task.createdAt.toLocaleDateString()" class="task bg-white p-2 mb-2 rounded shadow-sm max-w-[250px]">
+  <div
+    :title="task.createdAt.toLocaleDateString()"
+    class="task bg-white p-2 mb-2 rounded shadow-sm max-w-[250px] pr-2 flex"
+  >
+    <DragHandle />
     <span> {{ task.title }} </span>
   </div>
 </template>
